@@ -1,46 +1,47 @@
-# task3_spacy_ner.py
-
 import spacy
-import pandas as pd
 
-# Load spaCy English model (small one)
+# Load spaCy English model
 nlp = spacy.load("en_core_web_sm")
 
-# === STEP 1: SAMPLE TEXT DATA ===
-reviews = [
-    "I absolutely love my new Samsung Galaxy S24!",
-    "The Apple MacBook Air is overpriced but works smoothly.",
-    "Nike shoes are comfortable but delivery was slow.",
-    "I bought a Sony headphone and the sound quality is perfect!",
-    "Terrible experience with this Dell laptop, it crashed twice."
-]
+# Define simple positive and negative keywords for sentiment analysis
+positive_words = {"love", "amazing", "great", "highly recommend", "helpful", "easy to use", "excellent", "perfect"}
+negative_words = {"disappointing", "poor", "bad", "drains too fast", "terrible", "worst", "awful"}
 
-df = pd.DataFrame({"review": reviews})
-
-# === STEP 2: PERFORM NAMED ENTITY RECOGNITION ===
-def extract_entities(text):
-    doc = nlp(text)
-    entities = [(ent.text, ent.label_) for ent in doc.ents]
-    return entities
-
-df["entities"] = df["review"].apply(extract_entities)
-
-# === STEP 3: SIMPLE RULE-BASED SENTIMENT ANALYSIS ===
-def rule_based_sentiment(text):
-    text = text.lower()
-    positive_words = ["love", "perfect", "great", "smooth", "comfortable"]
-    negative_words = ["terrible", "slow", "crashed", "bad", "overpriced"]
-    pos_score = sum(word in text for word in positive_words)
-    neg_score = sum(word in text for word in negative_words)
-    if pos_score > neg_score:
+def analyze_sentiment(text):
+    """Rule-based sentiment analysis based on keyword presence."""
+    text_lower = text.lower()
+    if any(kw in text_lower for kw in positive_words):
         return "Positive"
-    elif neg_score > pos_score:
+    elif any(kw in text_lower for kw in negative_words):
         return "Negative"
     else:
         return "Neutral"
 
-df["sentiment"] = df["review"].apply(rule_based_sentiment)
+# Path to the plain text file
+file_path = "test.ft.txt"
 
-# === STEP 4: SHOW RESULTS ===
-print("\n✅ Named Entities & Sentiment Analysis Results:\n")
-print(df[["review", "entities", "sentiment"]])
+# Open and read the plain text file line by line
+with open(file_path, "r", encoding="utf-8") as file:
+    # Process first 10 reviews for demonstration
+    for i, line in enumerate(file):
+        if i >= 10:
+            break
+        
+        # Each line starts with a label like __label__2 followed by the review text
+        # Split by whitespace, remove the label part(s), then join back the review text
+        parts = line.strip().split()
+        # Remove all parts that start with '__label__' prefix
+        review_words = [word for word in parts if not word.startswith("__label__")]
+        review_text = " ".join(review_words)
+        
+        doc = nlp(review_text)
+        
+        # Extract entities labeled as ORG, PRODUCT, or PERSON
+        entities = [(ent.text, ent.label_) for ent in doc.ents if ent.label_ in ("ORG", "PRODUCT", "PERSON")]
+        
+        sentiment = analyze_sentiment(review_text)
+        
+        print(f"Review {i+1}: {review_text}")
+        print("Extracted entities:", entities)
+        print("Sentiment:", sentiment)
+        print("-" * 60)
