@@ -2,7 +2,7 @@
 
 ### Group Members
 - **Joseph Muthui**
-- **Member 2**
+- **Racheal Wanjiru**
 - **Member 3**
 
 ---
@@ -68,11 +68,21 @@ Copy code
 - Goal: >95% test accuracy  
 - Output: Accuracy plot and sample digit predictions.
 
-#### 🔵 Task 3: NLP (spaCy + NLTK)
-- Dataset: **Amazon-style reviews**
-- Tasks: Named Entity Recognition (NER) + Sentiment Analysis
-- Tools: `spaCy`, `TextBlob`, `NLTK`
-- Output: Entities extracted, sentiment polarity score, and WordCloud visualization.
+### Task 3: NLP Review Analysis with spaCy
+
+**Goal:**  
+Perform Named Entity Recognition (NER) to extract product names, brands, and organizations, and conduct rule-based sentiment analysis on sample Amazon product reviews.
+
+**Prerequisites:**  
+- Install spaCy and download the English model:
+  ```bash
+  pip install spacy
+  python -m spacy download en_core_web_sm
+  ```
+
+**Dataset:**  
+For full-scale use, refer to the Amazon Reviews dataset available on Kaggle:  
+[Amazon Reviews Dataset on Kaggle](https://www.kaggle.com/bittlingmayer/amazonreviews)
 
 ---
 
