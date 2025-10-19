@@ -1,7 +1,7 @@
 # 🧠 AI Tools Assignment
 
 ### Group Members
-- **Joseph Muthui Nzamba**
+- **Joseph Muthui**
 - **Member 2**
 - **Member 3**
 
