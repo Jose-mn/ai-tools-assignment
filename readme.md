@@ -68,6 +68,10 @@ Copy code
 - Goal: >95% test accuracy  
 - Output: Accuracy plot and sample digit predictions.
 
+Certainly! Here's the updated note including instructions to unzip the dataset file before running Task 3:
+
+---
+
 ### Task 3: NLP Review Analysis with spaCy
 
 **Goal:**  
@@ -81,8 +85,14 @@ Perform Named Entity Recognition (NER) to extract product names, brands, and org
   ```
 
 **Dataset:**  
-For full-scale use, refer to the Amazon Reviews dataset available on Kaggle:  
-[Amazon Reviews Dataset on Kaggle](https://www.kaggle.com/bittlingmayer/amazonreviews)
+Uses internal sample data for quick testing. For full-scale use, download the Amazon Reviews dataset from Kaggle:  
+[Amazon Reviews Dataset on Kaggle](https://www.kaggle.com/bittlingmayer/amazonreviews)  
+
+**Note:** After downloading, unzip the file to extract `test.ft.txt`, which is required to run the Task 3 code.
+
+---
+
+Let me know if you want me to add this directly into your README file!
 
 ---
 
